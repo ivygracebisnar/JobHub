@@ -119,8 +119,7 @@ if(!isset($user_id)){
 
                     <div class="section">
                         <h2>Summary</h2>
-                        <!-- This summary is sample only as it is not added in the database yet -->
-                        <p>I am a highly motivated and detail-oriented individual with a passion for web development and design. I have experience in front-end technologies such as HTML, CSS, and JavaScript, and I am eager to learn new technologies and frameworks.</p>
+                        <p><?php echo $fetch['summary'];?></p>
                     </div>
 
                     <div class="section">
@@ -143,12 +142,7 @@ if(!isset($user_id)){
                             <p><?php echo $fetch['skills'];?></p>
                         </div>
                     </div>
-                    <button style="background: rgb(86, 75, 133);
-    color: #fff;
-    padding: 7px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    margin-left: 750px;"><a href="generate_pdf.php?pdfid=<?php echo htmlentities($row['id']);?>">PDF</a></button>
+                    <button style="background: rgb(86, 75, 133);color: #fff;padding: 7px 15px;border-radius: 10px;cursor: pointer;margin-left: 750px;"><a href="generate_pdf.php?pdfid=<?php echo htmlentities($fetch['id']);?>">PDF</a></button>
                 </div>
             </div>
         </div>
