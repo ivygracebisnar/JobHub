@@ -36,6 +36,25 @@ require_once '../connection.php';
                     <h2>Employers</h2>
                 </div>
                 <div class="user--info">
+                <div class="search--box">
+                        <i class="fas fasolid fa-search"></i>
+                        <input type="text" id="Input" placeholder="Search"/>
+                    </div>
+                    <div class="notification">
+                        <div class="notif-icon" onclick="toggleNotifi()">
+                            <i class="fa-solid fa-bell"></i>
+                            <!-- <i class="fas fa-bell"><span>4</span></i> -->
+                        </div>
+                        <div class="notif-box" id="box">
+                            <h2>Notification</h2>
+                            <div class="notif-item">
+                                <div class="text">
+                                    <h4>No New Notification.</h4>
+                                    <p>Nothing to show here!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="profile">
                         <div class="info">
                             <p><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></p>

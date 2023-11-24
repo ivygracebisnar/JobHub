@@ -38,9 +38,9 @@ require_once '../connection.php';
                     <h2>Admin Dashboard</h2>
                 </div>
                 <div class="user--info">
-                    <div class="theme-toggler">
-                        <span class="active"><i class="fa-solid fa-sun"></i></span>
-                        <span><i class="fa-solid fa-moon"></i></span>
+                    <div class="search--box">
+                        <i class="fas fasolid fa-search"></i>
+                        <input type="text" id="Input" placeholder="Search"/>
                     </div>
                     <div class="notification">
                         <div class="notif-icon" onclick="toggleNotifi()">
