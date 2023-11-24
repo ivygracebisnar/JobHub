@@ -91,65 +91,7 @@ if(isset($_POST['update_profile'])){
             background-color: rgba(85, 73, 141, 1);
         }
 
-        /* MODAL */
-  /* Modal Container Styles */
-  .modal-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Modal Styles */
-  .modal {
-    background-color: #fefefe;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  /* Modal Header Styles */
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-  }
-  
-  /* Modal Body Styles */
-  .modal-body {
-    padding: 20px;
-  }
-  
-  /* Close Button Styles */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  /* Close Button Hover Effect */
-  .close:hover {
-    color: black;
-  }
-  
-  /* Button Styles (for triggering the modal) */
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-/* END MODAL */
+       
     </style>
     </head>
     <body>
@@ -222,35 +164,11 @@ if(isset($_POST['update_profile'])){
                     </div>
                     <div class="form-group" style="margin-top:1%">
                         <div class="col-md-6">
-                            <button type="submit" name="update_profile" class="btn btn-warning" onclick="openModal()">Update</button>
+                            <button type="submit" name="update_profile" class="btn btn-warning" >Update</button>
                         </div>
                     </div>
                 </form>
             </div>
-            <!-- <div class="main-course">
-                <h1>My Jobs</h1>
-                <div class="course-box">
-                    <ul>
-                        <li class="active">In progress</li>
-                        <li>pending</li>
-                        <li>finished</li>
-                    </ul>
-                    <div class="course">
-                        <div class="box">
-                            <h3>Programming</h3>
-                            <p>50% - progress</p>
-                            <button>continue</button>
-                            <i class="fas fa-computer"></i>
-                        </div>
-                        <div class="box">
-                            <h3>Online Tutor</h3>
-                            <p>80% - progress</p>
-                            <button>continue</button>
-                            <i class="fas fa-pen"></i>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
         <div class="footer" style="position: fixed;left: 0;bottom: 0;width: 100%;background: rgb(229, 223, 223);color: gray;text-align: center;">
             <strong><img src="../img/slsu.png" style="width: 20px; height: 20%; margin-left: 11%; margin-bottom: -23px; margin-top: 3px;"/>Copyright &copy; 2023; Group 4 - Barangay JobHub Information Management System BSIT 301 S.Y 2023-2024</strong> All Rights Reserved.
