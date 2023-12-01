@@ -1,15 +1,12 @@
 <?php
 
+include '../connection.php';
 session_start();
+$user_id = $_SESSION['user_id'];
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: signin.php");
-    exit;
-}
-?>
-
-<?php
-require_once '../connection.php';
+if(!isset($user_id)){
+   header('location:login.php');
+};
 
 $eid = $_GET['profid'];
 $sql = mysqli_query($conn, "SELECT * FROM employers WHERE id='$eid'");

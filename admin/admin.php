@@ -175,6 +175,11 @@ if(mysqli_num_rows($select) > 0){
                                 }}
                             ?>
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7"></td>
+                            </tr>
+                        </tfoot>
                     </table>
                 </div>
             </div>

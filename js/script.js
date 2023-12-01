@@ -36,3 +36,6 @@ function toggleNotifi(){
         down = true;
     }
 }
+
+
+new DataTable('#example');
