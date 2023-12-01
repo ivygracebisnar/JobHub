@@ -7,10 +7,11 @@ $user_id = $_SESSION['user_id'];
 if(!isset($user_id)){
    header('location:login.php');
 };
-?>
 
-<?php
-require_once '../connection.php';
+$select = mysqli_query($conn, "SELECT * FROM `admin` WHERE id = '$user_id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
+}
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +19,7 @@ require_once '../connection.php';
     <head>
         <meta charset="UTF-8"/>
         <title>Dashboard</title>
-        <link rel="stylesheet" href="../css/jobseekers.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
         <link rel="shortcut icon" href="../img/slsu.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
@@ -45,21 +46,38 @@ require_once '../connection.php';
                     <h2>Activity Log</h2>
                 </div>
                 <div class="user--info">
+                    <div class="search--box">
+                        <i class="fas fasolid fa-search"></i>
+                        <input type="text" id="Input" placeholder="Search"/>
+                    </div>
                     <div class="notification">
                         <div class="notif-icon" onclick="toggleNotifi()">
-                            <i class="fas fa-bell"></i>
+                            <i class="fa-solid fa-bell"></i>
+                            <!-- <i class="fas fa-bell"><span>4</span></i> -->
                         </div>
                         <div class="notif-box" id="box">
                             <h2>Notification</h2>
                             <div class="notif-item">
                                 <div class="text">
-                                    <h4>No New Notification!</h4>
+                                    <h4>No New Notification.</h4>
                                     <p>Nothing to show here!</p>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <img src="../img/slsu.png" alt=""/>
+                    <div class="profile">
+                        <div class="info">
+                            <p><b><?php echo $fetch['name']; ?></b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                    </div>
+                    <?php
+                        if($fetch['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                        }
+                    ?>
                 </div>
             </div>
                 <div class="card--container">

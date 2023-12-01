@@ -18,7 +18,7 @@
                     <li>
                         <a href="about.php">
                             <i class="fas fa-info-circle"></i>
-                            <span>About</span>
+                            <span>About Us</span>
                         </a>
                     </li>
                     <li>

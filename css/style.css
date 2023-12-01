@@ -495,6 +495,7 @@ tfoot td{
     margin: -20px 20px 20px 0;
   }
 
+  
 
 /*====media queries=====*/
 @media screen and (max-width: 400px) {
@@ -518,4 +519,12 @@ tfoot td{
             left: 0;
         }
     }
+
+    .update-profile form .flex{
+        flex-wrap: wrap;
+        gap:0;
+     }
+     .update-profile form .flex .inputBox{
+        width: 100%;
+     }
 }
