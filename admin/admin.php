@@ -45,14 +45,14 @@ if(mysqli_num_rows($select) > 0){
                     align-items: center;
                     list-style: none;
                     padding: 0;
+                    font-family: "Poppins", sans-serif;
                 }
 
                 .pagination li {
                     margin-right: 5px;
                 }
 
-                .pagination li a,
-                .pagination li.disabled {
+                .pagination li a {
                     display: inline-block;
                     padding: 6px 12px;
                     text-decoration: none;
@@ -135,12 +135,7 @@ if(mysqli_num_rows($select) > 0){
                                         echo '<h5 class="text-muted">No Record!</h5>';
                                     }
                                 ?>
-                                <a href="../admin/viewjobseekers.php" style="float: right;"><button style="background: rgb(86, 75, 133);
-    color: #fff;
-    padding: 7px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 100%;">Show</button></a>
+                                <a href="../admin/viewjobseekers.php" style="float: right;"><button style="background: rgb(86, 75, 133);color: #fff;padding: 7px 15px;border-radius: 10px;cursor: pointer;width: 100%;">Show</button></a>
                             </div>
                         </div>
                     </div>
@@ -158,12 +153,7 @@ if(mysqli_num_rows($select) > 0){
                                         echo '<h5 class="text-muted">No Record!</h5>';
                                     }
                                 ?>
-                                <a href="../admin/viewemployers.php" style="float: right;"><button style="background: rgb(86, 75, 133);
-    color: #fff;
-    padding: 7px 15px;
-    border-radius: 10px;
-    cursor: pointer;
-    width: 100%;">Show</button></a>
+                                <a href="../admin/viewemployers.php" style="float: right;"><button style="background: rgb(86, 75, 133);color: #fff;padding: 7px 15px;border-radius: 10px;cursor: pointer;width: 100%;">Show</button></a>
                             </div>
                         </div>
                     </div>
@@ -217,7 +207,7 @@ if(mysqli_num_rows($select) > 0){
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM jobs ORDER BY jobid");
+                                $sql = mysqli_query($conn, "SELECT * FROM jobs ORDER BY jobid DESC");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
@@ -236,7 +226,15 @@ if(mysqli_num_rows($select) > 0){
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="7"></td>
+                                <td colspan="7">Total Jobs = <?php
+                                    $dash_jobs_query = "SELECT * FROM jobs";
+                                    $dash_jobs_query_run = mysqli_query($conn, $dash_jobs_query);
+                                    if($jobs_total = mysqli_num_rows($dash_jobs_query_run)){
+                                        echo ''.$jobs_total.'';
+                                    }else{
+                                        echo 'No Record!';
+                                    }
+                                ?></td>
                             </tr>
                         </tfoot>
                     </table>

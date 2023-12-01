@@ -8,6 +8,11 @@ if(!isset($user_id)){
    header('location:login.php');
 };
 
+$select = mysqli_query($conn, "SELECT * FROM `admin` WHERE id = '$user_id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
+}
+
 $eid = $_GET['profid'];
 $sql = mysqli_query($conn, "SELECT * FROM jobseeker WHERE id='$eid'");
 $result = mysqli_fetch_array($sql);
@@ -54,13 +59,19 @@ $result = mysqli_fetch_array($sql);
                             </div>
                         </div>
                     </div>
-                <div class="profile">
+                    <div class="profile">
                         <div class="info">
-                            <p><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></p>
+                            <p><b><?php echo $fetch['name']; ?></b></p>
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
-                    <img src="../img/slsu.png" alt=""/>
+                    <?php
+                        if($fetch['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                        }
+                    ?>
                 </div>
                 </div>
             </div>

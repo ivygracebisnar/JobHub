@@ -31,7 +31,7 @@ if(isset($_POST['update_profile'])){
       }elseif($new_pass != $confirm_pass){
          $message[] = 'confirm password not matched!';
       }else{
-         mysqli_query($conn, "UPDATE `user_form` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
+         mysqli_query($conn, "UPDATE `admin` SET password = '$confirm_pass' WHERE id = '$user_id'") or die('query failed');
          $message[] = 'password updated successfully!';
       }
    }
@@ -68,9 +68,19 @@ if(isset($_POST['update_profile'])){
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
         <style>
+            .message{
+                margin:10px 0;
+                width: 100%;
+                border-radius: 5px;
+                padding:10px;
+                text-align: center;
+                background-color: #e74c3c;
+                color: #fff;
+                font-size: 20px;
+                }
+
             .update-profile{
                 min-height: 100vh;
-                background-color: var(--light-bg);
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -79,8 +89,6 @@ if(isset($_POST['update_profile'])){
             
             .update-profile form{
                 padding:20px;
-                background-color: var(--white);
-                box-shadow: var(--box-shadow);
                 text-align: center;
                 width: 700px;
                 text-align: center;
@@ -111,17 +119,16 @@ if(isset($_POST['update_profile'])){
                 display: block;
                 margin-top: 15px;
                 font-size: 17px;
-                color:var(--black);
+                color: #333;
             }
             
             .update-profile form .flex .inputBox .box{
                 width: 100%;
                 border-radius: 5px;
-                background-color: var(--light-bg);
                 padding:12px 14px;
                 font-size: 17px;
-                color:var(--black);
                 margin-top: 10px;
+                border: 1px solid rgba(0,0,0,0.2);
             }
             .btn{
                 background: rgb(86, 75, 133);
