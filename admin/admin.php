@@ -263,7 +263,7 @@ if(mysqli_num_rows($select) > 0){
                             <div class="left">
                                 <h3>Total Jobs Available</h3>
                                 <?php
-                                    $dash_jobs_query = "SELECT * FROM jobs";
+                                    $dash_jobs_query = "SELECT * FROM info";
                                     $dash_jobs_query_run = mysqli_query($conn, $dash_jobs_query);
                                     if($jobs_total = mysqli_num_rows($dash_jobs_query_run)){
                                         echo '<h1> '.$jobs_total.' </h1>';
@@ -301,13 +301,13 @@ if(mysqli_num_rows($select) > 0){
                                 $next_page = $page_no + 1;
                                 $adjacents = "2";
 
-                                $result_count=mysqli_query($conn, "SELECT COUNT(*) as total_records FROM jobs");
+                                $result_count=mysqli_query($conn, "SELECT COUNT(*) as total_records FROM info");
                                 $total_records = mysqli_fetch_array($result_count);
                                 $total_records = $total_records['total_records'];
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM jobs ORDER BY jobid DESC LIMIT $offset,$total_records_per_page");
+                                $sql = mysqli_query($conn, "SELECT * FROM info ORDER BY jobid DESC LIMIT $offset,$total_records_per_page");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
@@ -327,7 +327,7 @@ if(mysqli_num_rows($select) > 0){
                         <tfoot>
                             <tr>
                                 <td colspan="7">Total Jobs = <?php
-                                    $dash_jobs_query = "SELECT * FROM jobs";
+                                    $dash_jobs_query = "SELECT * FROM info";
                                     $dash_jobs_query_run = mysqli_query($conn, $dash_jobs_query);
                                     if($jobs_total = mysqli_num_rows($dash_jobs_query_run)){
                                         echo ''.$jobs_total.'';

@@ -112,7 +112,7 @@ if(mysqli_num_rows($select) > 0){
                 </div>
             </div>
             <div class="tabular--wrapper">
-            <button style="background: rgb(86, 75, 133);color: #fff;padding: 7px 15px;border-radius: 5px;margin-bottom: 5px;cursor: pointer;">Post Job</button>
+            <a href="postjob_index.php"><button style="background: rgb(86, 75, 133);color: #fff;padding: 7px 15px;border-radius: 5px;margin-bottom: 5px;cursor: pointer;">Post Job</button></a>
                 <div class="table-container">
                     <table>
                         <thead>
@@ -138,13 +138,13 @@ if(mysqli_num_rows($select) > 0){
                                 $next_page = $page_no + 1;
                                 $adjacents = "2";
 
-                                $result_count=mysqli_query($conn, "SELECT COUNT(*) as total_records FROM jobs WHERE employer_id = '$user_id'");
+                                $result_count=mysqli_query($conn, "SELECT COUNT(*) as total_records FROM info WHERE employer_id = '$user_id'");
                                 $total_records = mysqli_fetch_array($result_count);
                                 $total_records = $total_records['total_records'];
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM jobs WHERE employer_id = '$user_id' ORDER BY jobid DESC LIMIT $offset,$total_records_per_page");
+                                $sql = mysqli_query($conn, "SELECT * FROM info WHERE employer_id = '$user_id' ORDER BY jobid DESC LIMIT $offset,$total_records_per_page");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
@@ -169,7 +169,7 @@ if(mysqli_num_rows($select) > 0){
                         <tfoot>
                             <tr>
                                 <td colspan="7">Total Jobs = <?php
-                                    $dash_jobs_query = "SELECT * FROM jobs WHERE employer_id = '$user_id'";
+                                    $dash_jobs_query = "SELECT * FROM info WHERE employer_id = '$user_id'";
                                     $dash_jobs_query_run = mysqli_query($conn, $dash_jobs_query);
                                     if($jobs_total = mysqli_num_rows($dash_jobs_query_run)){
                                         echo ''.$jobs_total.'';

@@ -21,6 +21,12 @@ if(isset($_POST['submit'])){
 
    $select = mysqli_query($conn, "SELECT * FROM `jobseeker` WHERE email = '$email' AND password = '$pass'") or die('query failed');
 
+     // Log login activity
+    $user_id = $row['id'];
+    $activity_type = "Registered Successfully";
+    $log_query = "INSERT INTO jobseeker_activity_log (user_id, activity_type) VALUES ('$user_id', '$activity_type')";
+    mysqli_query($conn, $log_query);
+
    if(mysqli_num_rows($select) > 0){
       $message[] = 'user already exist'; 
    }else{

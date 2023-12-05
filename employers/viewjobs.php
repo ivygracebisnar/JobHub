@@ -14,7 +14,7 @@ if(mysqli_num_rows($select) > 0){
 }
 
 $eid = $_GET['profid'];
-$sql = mysqli_query($conn, "SELECT * FROM jobs WHERE jobid='$eid'");
+$sql = mysqli_query($conn, "SELECT * FROM info WHERE jobid='$eid'");
 $result = mysqli_fetch_array($sql);
 
 ?>

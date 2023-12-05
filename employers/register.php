@@ -32,6 +32,13 @@ if(isset($_POST['submit'])){
          if($insert){
             move_uploaded_file($image_tmp_name, $image_folder);
             $message[] = 'registered successfully!';
+
+            // Log login activity
+            $user_id = $row['id'];
+            $activity_type = "Registered Successfully";
+            $log_query = "INSERT INTO employers_activity_log (user_id, activity_type) VALUES ('$user_id', '$activity_type')";
+            mysqli_query($conn, $log_query);
+
             header('location:login.php');
          }else{
             $message[] = 'Registration failed!';
