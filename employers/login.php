@@ -13,6 +13,13 @@ if(isset($_POST['submit'])){
    if(mysqli_num_rows($select) > 0){
       $row = mysqli_fetch_assoc($select);
       $_SESSION['user_id'] = $row['id'];
+
+      // Log login activity
+      $user_id = $row['id'];
+      $activity_type = "Login Successfully";
+      $log_query = "INSERT INTO employers_activity_log (user_id, activity_type) VALUES ('$user_id', '$activity_type')";
+      mysqli_query($conn, $log_query);
+
       header('location:employers.php');
    }else{
       $message[] = 'incorrect email or password!';
@@ -29,7 +36,7 @@ if(isset($_POST['submit'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/slsu.png">
-    <link rel="stylesheet" href="../css/employerslogin.css">
+    <link rel="stylesheet" href="../css/session.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <title>User Login or Signup</title>
 </head>

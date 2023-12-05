@@ -7,8 +7,14 @@ $user_id = $_SESSION['user_id'];
 if(!isset($user_id)){
    header('location:login.php');
 };
+
+$select = mysqli_query($conn, "SELECT * FROM `jobseeker` WHERE id = '$user_id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
+}
+
 $eid = $_GET['profid'];
-$sql = mysqli_query($conn, "SELECT * FROM jobs WHERE jobid='$eid'");
+$sql = mysqli_query($conn, "SELECT * FROM info WHERE jobid='$eid'");
 $result = mysqli_fetch_array($sql);
 
 ?>
@@ -25,9 +31,7 @@ $result = mysqli_fetch_array($sql);
     </head>
     <body>
         <!--- START OF SIDEBAR--->
-        <div class="sidebar">
-            <?php include("sidebar.php") ?>
-        </div>
+        <?php include("sidebar.php") ?>
         <!---END OF SIDEBAR--->
 
         <!---START OF MAIN--CONTENT--->
@@ -37,16 +41,35 @@ $result = mysqli_fetch_array($sql);
                     <h2>Job Opportunities</h2>
                 </div>
                 <div class="user--info">
-                <div class="profile">
-                        <div class="info">
+                    <div class="search--box">
+                        <i class="fas fasolid fa-search"></i>
+                        <input type="text" id="myInput" placeholder="Search" class="form-control"/>
+                    </div>
+                    <div class="notification">
+                        <div class="notif-icon" onclick="toggleNotifi()">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="notif-box" id="box">
+                            <h2>Notification</h2>
+                            <div class="notif-item">
+                                <div class="text">
+                                    <h4>No New Notification!</h4>
+                                    <p>Nothing to show here!</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <img src="../img/slsu.png" alt=""/>
-                </div>
+                    <?php
+                        if($fetch['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                        }
+                    ?>
                 </div>
             </div>
-            <div class="container" style="margin-top: 20px; margin-left: 9%; width: 78%;">
-                <div class="right">
+            <div class="container" style="margin-top: 20px;">
+                <div class="right" style="width: 100%;">
                     <div class="info">
                         <h3>Job Information</h3>
                         <div class="info_data">
@@ -94,9 +117,8 @@ $result = mysqli_fetch_array($sql);
                 </div>
             </div>
         </div>
-        <div class="footer" style="position: fixed;left: 0;bottom: 0;width: 100%;background: rgb(229, 223, 223);color: gray;text-align: center;">
-            <strong><img src="../img/slsu.png" style="width: 20px; height: 20%; margin-left: 11%; margin-bottom: -23px; margin-top: 3px;"/>Copyright &copy; 2023; Group 4 - Barangay JobHub Information Management System BSIT 301 S.Y 2023-2024</strong> All Rights Reserved.
-        </div>
+        <script src="../js/script.js"></script>
+        <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>
 </html>

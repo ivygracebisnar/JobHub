@@ -1,15 +1,17 @@
 <?php
 
+include '../connection.php';
 session_start();
+$user_id = $_SESSION['user_id'];
 
-if(!isset($_SESSION["loggedin"]) || $_SESSION["loggedin"] !== true){
-    header("location: signin.php");
-    exit;
+if(!isset($user_id)){
+   header('location:login.php');
+};
+
+$select = mysqli_query($conn, "SELECT * FROM `admin` WHERE id = '$user_id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
 }
-?>
-
-<?php
-require_once '../connection.php';
 
 $eid = $_GET['profid'];
 $sql = mysqli_query($conn, "SELECT * FROM employers WHERE id='$eid'");
@@ -21,16 +23,14 @@ $result = mysqli_fetch_array($sql);
     <head>
         <meta charset="UTF-8"/>
         <title>Employer's Profile</title>
-        <link rel="stylesheet" href="../css/admin.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
         <link rel="shortcut icon" href="../img/slsu.png">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     </head>
     <body>
         <!--- START OF SIDEBAR--->
-        <div class="sidebar">
             <?php include("sidebar.php") ?>
-        </div>
         <!---END OF SIDEBAR--->
 
         <!---START OF MAIN--CONTENT--->
@@ -61,16 +61,30 @@ $result = mysqli_fetch_array($sql);
                     </div>
                     <div class="profile">
                         <div class="info">
-                            <p><b><?php echo htmlspecialchars($_SESSION["username"]); ?></b></p>
+                            <p><b><?php echo $fetch['name']; ?></b></p>
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
-                    <img src="../img/slsu.png" alt=""/>
+                    <a href="settings.php">
+                    <?php
+                        if($fetch['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                        }
+                    ?>
+                    </a>
                 </div>
             </div>
-            <div class="container" style="margin-top: 50px;">
+            <div class="container" style="margin-top: 15px;">
                 <div class="left">
-                    <img src="../uploaded_img/<?php echo $result['image'];?>" alt="user" width="100">
+                    <?php
+                        if($result['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$result['image'].'">';
+                        }
+                    ?>
                     <h4><?php echo $result['emp_name'];?></h4>
                     <h4>ID:  <?php echo $result['id'];?></h4>
                     <h4>Email:  <?php echo $result['email'];?></h4>
@@ -122,9 +136,7 @@ $result = mysqli_fetch_array($sql);
                 </div>
             </div>
         </div>
-        <div class="footer" style="position: fixed;left: 0;bottom: 0;width: 100%;background: rgb(229, 223, 223);color: gray;text-align: center;">
-            <strong><img src="../img/slsu.png" style="width: 20px; height: 20%; margin-left: 11%; margin-bottom: -23px; margin-top: 3px;"/>Copyright &copy; 2023; Group 4 - Barangay JobHub Information Management System BSIT 301 S.Y 2023-2024</strong> All Rights Reserved.
-        </div>
+        <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>
 </html>

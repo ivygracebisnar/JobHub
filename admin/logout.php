@@ -1,10 +1,14 @@
 <?php
+
+include '../connection.php';
 session_start();
+$user_id = $_SESSION['user_id'];
 
-$_SESSION = array();
 
-session_destroy();
+if(isset($_GET['logout'])){
+   unset($user_id);
+   session_destroy();
+   header('location:login.php');
+}
 
-header("location: signin.php");
-exit;
 ?>

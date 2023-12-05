@@ -13,6 +13,13 @@ if(isset($_POST['submit'])){
    if(mysqli_num_rows($select) > 0){
       $row = mysqli_fetch_assoc($select);
       $_SESSION['user_id'] = $row['id'];
+
+      // Log login activity
+      $user_id = $row['id'];
+      $activity_type = "Login";
+      $log_query = "INSERT INTO jobseeker_activity_log (user_id, activity_type) VALUES ('$user_id', '$activity_type')";
+      mysqli_query($conn, $log_query);
+
       header('location:jobseekers.php');
    }else{
       $message[] = 'incorrect email or password!';

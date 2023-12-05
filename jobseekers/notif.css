@@ -1,0 +1,81 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.navbar {
+    background-color: #333;
+    border: none;
+    margin-bottom: 0;
+    border-radius: 0;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.navbar-brand:hover {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white;
+}
+
+.navbar-inverse .navbar-nav>li>a:hover {
+    color: white;
+    background-color: transparent;
+}
+
+#bell-count {
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    background-color: #f00;
+    color: #fff;
+    border-radius: 50%;
+    padding: 5px 10px;
+    font-size: 14px;
+    z-index: 1;
+}
+
+#list {
+    list-style: none;
+    padding: 0;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 300px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 5px;
+    display: none;
+    z-index: 2;
+}
+
+.message {
+    padding: 15px;
+    border-radius: 5px;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-title {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.msg {
+    margin-top: 10px;
+}
+
+.view-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-top: 5px;
+}
+
+.view-link:hover {
+    text-decoration: underline;
+}
