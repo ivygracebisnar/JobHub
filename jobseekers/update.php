@@ -4,6 +4,11 @@ include '../connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
 
+$select = mysqli_query($conn, "SELECT * FROM `jobseeker` WHERE id = '$user_id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
+}
+
 if(isset($_POST['update_profile'])){
 
    $update_name = mysqli_real_escape_string($conn, $_POST['update_name']);
@@ -17,22 +22,22 @@ if(isset($_POST['update_profile'])){
    mysqli_query($conn, "UPDATE `jobseeker` SET name = '$update_name', age = '$update_age', address = '$update_address', phone = '$update_phone', skills = '$update_skills', experience = '$update_experience', email = '$update_email' WHERE id = '$user_id'") or die('query failed');
 
 
-//    $update_image = $_FILES['update_image']['name'];
-//    $update_image_size = $_FILES['update_image']['size'];
-//    $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
-//    $update_image_folder = '../uploaded_img/'.$update_image;
+   $update_image = $_FILES['update_image']['name'];
+   $update_image_size = $_FILES['update_image']['size'];
+   $update_image_tmp_name = $_FILES['update_image']['tmp_name'];
+   $update_image_folder = '../uploaded_img/'.$update_image;
 
-//    if(!empty($update_image)){
-//       if($update_image_size > 2000000){
-//          $message[] = 'image is too large';
-//       }else{
-//          $image_update_query = mysqli_query($conn, "UPDATE `jobseeker` SET image = '$update_image' WHERE id = '$user_id'") or die('query failed');
-//          if($image_update_query){
-//             move_uploaded_file($update_image_tmp_name, $update_image_folder);
-//          }
-//          $message[] = 'image updated succssfully!';
-//       }
-//    }
+   if(!empty($update_image)){
+      if($update_image_size > 2000000){
+         $message[] = 'image is too large';
+      }else{
+         $image_update_query = mysqli_query($conn, "UPDATE `jobseeker` SET image = '$update_image' WHERE id = '$user_id'") or die('query failed');
+         if($image_update_query){
+            move_uploaded_file($update_image_tmp_name, $update_image_folder);
+         }
+         $message[] = 'image updated succssfully!';
+      }
+   }
 
 }
 
@@ -90,73 +95,11 @@ if(isset($_POST['update_profile'])){
         .form-group button:hover {
             background-color: rgba(85, 73, 141, 1);
         }
-
-        /* MODAL */
-  /* Modal Container Styles */
-  .modal-container {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Modal Styles */
-  .modal {
-    background-color: #fefefe;
-    padding: 20px;
-    border-radius: 5px;
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  /* Modal Header Styles */
-  .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 10px;
-  }
-  
-  /* Modal Body Styles */
-  .modal-body {
-    padding: 20px;
-  }
-  
-  /* Close Button Styles */
-  .close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  }
-  
-  /* Close Button Hover Effect */
-  .close:hover {
-    color: black;
-  }
-  
-  /* Button Styles (for triggering the modal) */
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-/* END MODAL */
     </style>
     </head>
     <body>
         <!--- START OF SIDEBAR--->
-        <div class="sidebar">
-            <?php include("sidebar.php") ?>
-        </div>
+        <?php include("sidebar.php") ?>
         <!---END OF SIDEBAR--->
 
         <!---START OF MAIN--CONTENT--->
@@ -166,7 +109,31 @@ if(isset($_POST['update_profile'])){
                     <h2>Update Personal Details</h2>
                 </div>
                 <div class="user--info">
-                    <img src="../img/slsu.png" alt=""/>
+                    <div class="search--box">
+                        <i class="fas fasolid fa-search"></i>
+                        <input type="text" id="myInput" placeholder="Search" class="form-control"/>
+                    </div>
+                    <div class="notification">
+                        <div class="notif-icon" onclick="toggleNotifi()">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="notif-box" id="box">
+                            <h2>Notification</h2>
+                            <div class="notif-item">
+                                <div class="text">
+                                    <h4>No New Notification!</h4>
+                                    <p>Nothing to show here!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                        if($fetch['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                        }
+                    ?>
                 </div>
             </div>
             <div class="form-container">
@@ -217,45 +184,19 @@ if(isset($_POST['update_profile'])){
                     <div class="form-group">
                         <div class="col-md-6">
                         <label>Profile Picture</label>
-                            <input type="file" name="update_image" value="<?php echo $fetch['image'];?>" accept="image/jpg, image/jpeg, image/png" class="form-control" placeholder="Choose File">
+                            <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png"">
                         </div>
                     </div>
                     <div class="form-group" style="margin-top:1%">
                         <div class="col-md-6">
-                            <button type="submit" name="update_profile" class="btn btn-warning" onclick="openModal()">Update</button>
+                            <button type="submit" name="update_profile" class="btn btn-warning">Update</button>
                         </div>
                     </div>
                 </form>
             </div>
-            <!-- <div class="main-course">
-                <h1>My Jobs</h1>
-                <div class="course-box">
-                    <ul>
-                        <li class="active">In progress</li>
-                        <li>pending</li>
-                        <li>finished</li>
-                    </ul>
-                    <div class="course">
-                        <div class="box">
-                            <h3>Programming</h3>
-                            <p>50% - progress</p>
-                            <button>continue</button>
-                            <i class="fas fa-computer"></i>
-                        </div>
-                        <div class="box">
-                            <h3>Online Tutor</h3>
-                            <p>80% - progress</p>
-                            <button>continue</button>
-                            <i class="fas fa-pen"></i>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
-        <div class="footer" style="position: fixed;left: 0;bottom: 0;width: 100%;background: rgb(229, 223, 223);color: gray;text-align: center;">
-            <strong><img src="../img/slsu.png" style="width: 20px; height: 20%; margin-left: 11%; margin-bottom: -23px; margin-top: 3px;"/>Copyright &copy; 2023; Group 4 - Barangay JobHub Information Management System BSIT 301 S.Y 2023-2024</strong> All Rights Reserved.
-        </div>
+        <script src="../js/script.js"></script>
+        <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
-        <script src="modal.js"></script>
     </body>
 </html>

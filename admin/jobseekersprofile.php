@@ -23,7 +23,7 @@ $result = mysqli_fetch_array($sql);
     <head>
         <meta charset="UTF-8"/>
         <title>Job Seekers' Profile</title>
-        <link rel="stylesheet" href="../css/admin.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
         <link rel="shortcut icon" href="../img/slsu.png">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -65,6 +65,7 @@ $result = mysqli_fetch_array($sql);
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
+                    <a href="settings.php">
                     <?php
                         if($fetch['image'] == ''){
                             echo '<img src="../images/default-avatar.png">';
@@ -72,12 +73,19 @@ $result = mysqli_fetch_array($sql);
                             echo '<img src="../uploaded_img/'.$fetch['image'].'">';
                         }
                     ?>
+                    </a>
                 </div>
                 </div>
             </div>
             <div class="container" style="margin-top: 15px; margin-left: 9%; width: 78%;">
                 <div class="left">
-                    <img src="../uploaded_img/<?php echo $result['image'];?>" alt="user" width="100">
+                <?php
+                        if($result['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$result['image'].'">';
+                        }
+                    ?>
                     <h4><?php echo $result['name'];?></h4>
                     <h4>ID:  <?php echo $result['id'];?></h4>
                     <h4>Email:  <?php echo $result['email'];?></h4>
@@ -122,6 +130,7 @@ $result = mysqli_fetch_array($sql);
                 </div>
             </div>
         </div>
+        <script src="../js/script.js"></script>
         <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>

@@ -7,6 +7,12 @@ $user_id = $_SESSION['user_id'];
 if(!isset($user_id)){
    header('location:login.php');
 };
+
+$select = mysqli_query($conn, "SELECT * FROM `jobseeker` WHERE id = '$user_id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
+}
+
 if(isset($_POST["register"])) {
     $id = mysqli_real_escape_string($conn, $_POST['id']);
     
@@ -43,7 +49,7 @@ if(isset($_POST["register"])) {
     <head>
         <meta charset="UTF-8"/>
         <title>Job Opportunities</title>
-        <link rel="stylesheet" href="../css/jobseekers.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
         <link rel="shortcut icon" href="../img/slsu.png">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -94,9 +100,7 @@ if(isset($_POST["register"])) {
     </head>
     <body>
         <!--- START OF SIDEBAR--->
-        <div class="sidebar">
-            <?php include("sidebar.php") ?>
-        </div>
+        <?php include("sidebar.php") ?>
         <!---END OF SIDEBAR--->
 
         <!---START OF MAIN--CONTENT--->
@@ -106,7 +110,31 @@ if(isset($_POST["register"])) {
                     <h2>"Send Resume and Don't miss Opportunities!"</h2>
                 </div>
                 <div class="user--info">
-                    <img src="../img/slsu.png" alt=""/>
+                    <div class="search--box">
+                        <i class="fas fasolid fa-search"></i>
+                        <input type="text" id="myInput" placeholder="Search" class="form-control"/>
+                    </div>
+                    <div class="notification">
+                        <div class="notif-icon" onclick="toggleNotifi()">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <div class="notif-box" id="box">
+                            <h2>Notification</h2>
+                            <div class="notif-item">
+                                <div class="text">
+                                    <h4>No New Notification!</h4>
+                                    <p>Nothing to show here!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                        if($fetch['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                        }
+                    ?>
                 </div>
             </div>
             <div class="form-container">
@@ -130,34 +158,9 @@ if(isset($_POST["register"])) {
                     </div>
                 </form>
             </div>
-            <!-- <div class="main-course">
-                <h1>My Jobs</h1>
-                <div class="course-box">
-                    <ul>
-                        <li class="active">In progress</li>
-                        <li>pending</li>
-                        <li>finished</li>
-                    </ul>
-                    <div class="course">
-                        <div class="box">
-                            <h3>Programming</h3>
-                            <p>50% - progress</p>
-                            <button>continue</button>
-                            <i class="fas fa-computer"></i>
-                        </div>
-                        <div class="box">
-                            <h3>Online Tutor</h3>
-                            <p>80% - progress</p>
-                            <button>continue</button>
-                            <i class="fas fa-pen"></i>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
-        <div class="footer" style="position: fixed;left: 0;bottom: 0;width: 100%;background: rgb(229, 223, 223);color: gray;text-align: center;">
-            <strong><img src="../img/slsu.png" style="width: 20px; height: 20%; margin-left: 11%; margin-bottom: -23px; margin-top: 3px;"/>Copyright &copy; 2023; Group 4 - Barangay JobHub Information Management System BSIT 301 S.Y 2023-2024</strong> All Rights Reserved.
-        </div>
+        <script src="../js/script.js"></script>
+        <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>
 </html>

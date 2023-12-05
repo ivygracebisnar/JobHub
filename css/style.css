@@ -233,6 +233,8 @@ img{
 .search--box i:hover{
     transform: scale(1.2);
 }
+
+
 /* --- card container --- */
 .card--container{
     background: #fff;
@@ -269,6 +271,8 @@ img{
 .container .left img{
     margin-bottom: 10px;
     border-radius: 5px;
+    height: 290px;
+    width: 300px;
 }
 .container .left h4{
     margin-bottom: 10px;

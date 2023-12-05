@@ -28,13 +28,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="settings.php">
-                            <i class="fas fa-cog"></i>
-                            <span>Settings</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="logout.php">
+                        <a href="logout.php?logout=<?php echo $user_id; ?>">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Log Out</span>
                         </a>

@@ -177,6 +177,7 @@ if(isset($_POST['update_profile'])){
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
+                    <a href="settings.php">
                     <?php
                         if($fetch['image'] == ''){
                             echo '<img src="../images/default-avatar.png">';
@@ -184,6 +185,7 @@ if(isset($_POST['update_profile'])){
                             echo '<img src="../uploaded_img/'.$fetch['image'].'">';
                         }
                     ?>
+                    </a>
                 </div>
             </div>
             <div class="tabular--wrapper">
@@ -231,7 +233,7 @@ if(isset($_POST['update_profile'])){
                 </div>
             </div>
         </div>
-        <script src="js/script.js"></script>
+        <script src="../js/script.js"></script>
         <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>

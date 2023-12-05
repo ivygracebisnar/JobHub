@@ -66,7 +66,7 @@ if(mysqli_num_rows($select) > 0){
                 }
 
                 .pagination li.active a {
-                    background-color: #007bff;
+                    background-color: rgb(64, 56, 97);
                     color: #fff;
                     font-weight: bold;
                 }
@@ -110,6 +110,7 @@ if(mysqli_num_rows($select) > 0){
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
+                    <a href="settings.php">
                     <?php
                         if($fetch['image'] == ''){
                             echo '<img src="../images/default-avatar.png">';
@@ -117,6 +118,7 @@ if(mysqli_num_rows($select) > 0){
                             echo '<img src="../uploaded_img/'.$fetch['image'].'">';
                         }
                     ?>
+                    </a>
                 </div>
             </div>
             <div class="tabular--wrapper">
@@ -154,7 +156,7 @@ if(mysqli_num_rows($select) > 0){
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM employers ORDER BY id DESC");
+                                $sql = mysqli_query($conn, "SELECT * FROM employers ORDER BY id DESC LIMIT $offset,$total_records_per_page");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
@@ -197,7 +199,7 @@ if(mysqli_num_rows($select) > 0){
 
                 <?php
                     if($total_no_of_pages <=10) {
-                        for($counter = 1; $counter <-$total_no_of_pages;$counter++) {
+                        for($counter = 1; $counter <=$total_no_of_pages;$counter++) {
                             if($counter == $page_no) {
                                 echo "<li class='active'><a>$counter</a></li>";
                             }else{
@@ -253,7 +255,7 @@ if(mysqli_num_rows($select) > 0){
                 </ul>
             </div>
         </div>
-        <script src="js/script.js"></script>
+        <script src="../js/script.js"></script>
         <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>

@@ -25,7 +25,7 @@ if(mysqli_num_rows($select) > 0){
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
         <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
         <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
             <script>
                 $(document).ready(function(){
@@ -36,6 +36,12 @@ if(mysqli_num_rows($select) > 0){
                         });
                     });
                 });
+
+                let subMenu = document.getElementById('subMenu');
+
+                function toggleMenu(){
+                    subMenu.classList.toggle('open-menu');
+                }
             </script>
 
             <style>
@@ -67,9 +73,73 @@ if(mysqli_num_rows($select) > 0){
                 }
 
                 .pagination li.active a {
-                    background-color: #007bff;
+                    background-color: rgb(64, 56, 97);
                     color: #fff;
                     font-weight: bold;
+                }
+                
+                .sub-menu-wrap{
+                    position: absolute;
+                    top: 100%;
+                    right: 10%;
+                    width: 320px;
+                    max-height: 0px;
+                    overflow: hidden;
+                    transition: max-height 0.5s;
+                }
+                .sub-menu-wrap.open-menu{
+                    max-height: 400px;
+                }
+                .sub-menu{
+                    background: #fff;
+                    padding: 20px;
+                    margin: 10px;
+                }
+                .user-info{
+                    display: flex;
+                    align-items: center;
+                }
+                .user-info h3{
+                    font-weight: 500;
+                }
+                .user-info img{
+                    width: 50px;
+                    border-radius: 50%;
+                    margin-right: 15px;
+                }
+                .sub-menu hr{
+                    border: 0;
+                    height: 1px;
+                    width: 100%;
+                    background: #ccc;
+                    margin: 15px 0 10px;
+                }
+                .sub-menu-link{
+                    display: flex;
+                    align-items: center;
+                    text-decoration: none;
+                    color: #525252;
+                    margin: 12px 0;
+                }
+                .sub-menu-link p{
+                    width: 100%;
+                }
+                .sub-menu-link i{
+                    width: 40px;
+                    background: #e5e5e5;
+                    border-radius: 50%;
+                    padding: 8px;
+                    margin-right: 15px;
+                }
+                .sub-menu-link span{
+                    font-size: 22px;
+                    transition: transform 0.5s;
+                }
+                .sub-menu-link:hover span{
+                    transform: translateX(5px);
+                }
+                .sub-menu-link:hover p{
+                    font-weight: 600;
                 }
 
             </style>
@@ -111,18 +181,50 @@ if(mysqli_num_rows($select) > 0){
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
-                    <?php
-                        if($fetch['image'] == ''){
-                            echo '<img src="../images/default-avatar.png">';
-                        }else{
-                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
-                        }
-                    ?>
+                    <div class="user-pic" onclick="toggleMenu()">
+                        <a href="settings.php"><?php
+                            if($fetch['image'] == ''){
+                                echo '<img src="../images/default-avatar.png">';
+                            }else{
+                                echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                            }
+                        ?></a>
+                    </div>
+                    <div class="sub-menu-wrap" id="subMenu">
+                        <div class="sub-menu">
+                            <div class="user-info">
+                            <?php
+                                if($fetch['image'] == ''){
+                                    echo '<img src="../images/default-avatar.png">';
+                                }else{
+                                    echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                                }
+                            ?>
+                            <h3><?php echo $fetch['name']; ?></h3>
+                            </div>
+                            <hr>
+
+                            <a href="#" class="sub-menu-link">
+                                <i class="fa-solid fa-user"></i>
+                                <p>Edit Profile</p>
+                                <span>></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <i class="fa-solid fa-lock"></i>
+                                <p>Security</p>
+                                <span>></span>
+                            </a>
+                            <a href="#" class="sub-menu-link">
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                                <p>Logout</p>
+                                <span>></span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="insights">
                     <div class="first">
-                    <ion-icon name="people-sharp"></ion-icon>
                         <div class="middle">
                             <div class="left">
                                 <h3>Total Job Seekers</h3>
@@ -140,7 +242,6 @@ if(mysqli_num_rows($select) > 0){
                         </div>
                     </div>
                     <div class="second">
-                    <ion-icon name="people-sharp"></ion-icon>
                         <div class="middle">
                             <div class="left">
                                 <h3>Total Employers</h3>
@@ -158,7 +259,6 @@ if(mysqli_num_rows($select) > 0){
                         </div>
                     </div>
                     <div class="third">
-                    <ion-icon name="people-sharp"></ion-icon>
                         <div class="middle">
                             <div class="left">
                                 <h3>Total Jobs Available</h3>
@@ -207,13 +307,13 @@ if(mysqli_num_rows($select) > 0){
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM jobs ORDER BY jobid DESC");
+                                $sql = mysqli_query($conn, "SELECT * FROM jobs ORDER BY jobid DESC LIMIT $offset,$total_records_per_page");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
                                     while($row = mysqli_fetch_array($sql)) {
                             ?>
-                            <tr id="Table">
+                            <tr>
                                 <td><?php echo $row['title'];?></td>
                                 <td><?php echo $row['description'];?></td>
                                 <td><?php echo $row['salary'];?></td>
@@ -247,7 +347,7 @@ if(mysqli_num_rows($select) > 0){
 
                 <?php
                     if($total_no_of_pages <=10) {
-                        for($counter = 1; $counter <-$total_no_of_pages;$counter++) {
+                        for($counter = 1; $counter <=$total_no_of_pages;$counter++) {
                             if($counter == $page_no) {
                                 echo "<li class='active'><a>$counter</a></li>";
                             }else{

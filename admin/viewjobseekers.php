@@ -19,7 +19,7 @@ if(mysqli_num_rows($select) > 0){
     <head>
         <meta charset="UTF-8"/>
         <title>Admin Dashboard</title>
-        <link rel="stylesheet" href="../css/admin.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
         <link rel="shortcut icon" href="../img/slsu.png">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -66,7 +66,7 @@ if(mysqli_num_rows($select) > 0){
                 }
 
                 .pagination li.active a {
-                    background-color: #007bff;
+                    background-color: rgb(64, 56, 97);
                     color: #fff;
                     font-weight: bold;
                 }
@@ -110,6 +110,7 @@ if(mysqli_num_rows($select) > 0){
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
+                    <a href="settings.php">
                     <?php
                         if($fetch['image'] == ''){
                             echo '<img src="../images/default-avatar.png">';
@@ -117,6 +118,7 @@ if(mysqli_num_rows($select) > 0){
                             echo '<img src="../uploaded_img/'.$fetch['image'].'">';
                         }
                     ?>
+                    </a>
                 </div>
             </div>
             <div class="tabular--wrapper">
@@ -147,13 +149,13 @@ if(mysqli_num_rows($select) > 0){
                                 $next_page = $page_no + 1;
                                 $adjacents = "2";
 
-                                $result_count=mysqli_query($conn, "SELECT COUNT(*) as total_records FROM jobs");
+                                $result_count=mysqli_query($conn, "SELECT COUNT(*) as total_records FROM jobseeker");
                                 $total_records = mysqli_fetch_array($result_count);
                                 $total_records = $total_records['total_records'];
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM jobseeker ORDER BY id DESC");
+                                $sql = mysqli_query($conn, "SELECT * FROM jobseeker ORDER BY id DESC LIMIT $offset,$total_records_per_page");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
@@ -195,7 +197,7 @@ if(mysqli_num_rows($select) > 0){
 
                 <?php
                     if($total_no_of_pages <=10) {
-                        for($counter = 1; $counter <-$total_no_of_pages;$counter++) {
+                        for($counter = 1; $counter <=$total_no_of_pages;$counter++) {
                             if($counter == $page_no) {
                                 echo "<li class='active'><a>$counter</a></li>";
                             }else{
@@ -204,7 +206,7 @@ if(mysqli_num_rows($select) > 0){
                         }
                     }elseif($total_no_of_pages > 10) {
                         if($page_no <=4){
-                            for($counter =  1; $counter < 8; $counter++){
+                            for($counter = 1; $counter < 8; $counter++){
                                 if($counter == $page_no){
                                     echo "<li class='active'><a>$counter</a></li>";
                                 }else{
@@ -251,7 +253,7 @@ if(mysqli_num_rows($select) > 0){
                 </ul>
             </div>
         </div>
-        <script src="js/script.js"></script>
+        <script src="../js/script.js"></script>
         <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>

@@ -7,6 +7,11 @@ $user_id = $_SESSION['user_id'];
 if(!isset($user_id)){
    header('location:login.php');
 };
+
+$select = mysqli_query($conn, "SELECT * FROM `employers` WHERE id = '$user_id'") or die('query failed');
+if(mysqli_num_rows($select) > 0){
+    $fetch = mysqli_fetch_assoc($select);
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +19,7 @@ if(!isset($user_id)){
     <head>
         <meta charset="UTF-8"/>
         <title>Dashboard</title>
-        <link rel="stylesheet" href="../css/jobseekers.css"/>
+        <link rel="stylesheet" href="../css/style.css"/>
         <link rel="shortcut icon" href="../img/slsu.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 
@@ -31,9 +36,7 @@ if(!isset($user_id)){
     </head>
     <body>
         <!--- START OF SIDEBAR--->
-        <div class="sidebar">
-            <?php include("sidebar.php") ?>
-        </div>
+        <?php include("sidebar.php") ?>
         <!---END OF SIDEBAR--->
 
         <!---START OF MAIN--CONTENT--->
@@ -43,6 +46,10 @@ if(!isset($user_id)){
                     <h2>Activity Log</h2>
                 </div>
                 <div class="user--info">
+                    <div class="search--box">
+                        <i class="fas fasolid fa-search"></i>
+                        <input type="text" id="myInput" placeholder="Search" class="form-control"/>
+                    </div>
                     <div class="notification">
                         <div class="notif-icon" onclick="toggleNotifi()">
                             <i class="fas fa-bell"></i>
@@ -57,7 +64,13 @@ if(!isset($user_id)){
                             </div>
                         </div>
                     </div>
-                    <img src="../img/slsu.png" alt=""/>
+                    <a href="profile.php"><?php
+                        if($fetch['image'] == ''){
+                            echo '<img src="../images/default-avatar.png">';
+                        }else{
+                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                        }
+                    ?></a>
                 </div>
             </div>
             <div class="card--container">
@@ -65,9 +78,7 @@ if(!isset($user_id)){
             </div>
         </div>
         <script src="../js/script.js"></script>
-        <div class="footer" style="position: fixed;left: 0;bottom: 0;width: 100%;background: rgb(229, 223, 223);color: gray;text-align: center;">
-            <strong><img src="../img/slsu.png" style="width: 20px; height: 20%; margin-left: 11%; margin-bottom: -23px; margin-top: 3px;"/>Copyright &copy; 2023; Group 4 - Barangay JobHub Information Management System BSIT 301 S.Y 2023-2024</strong> All Rights Reserved.
-        </div>
+        <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>
 </html>

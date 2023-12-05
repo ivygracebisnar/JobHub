@@ -10,6 +10,7 @@ if(isset($_POST['submit'])){
    $phone = mysqli_real_escape_string($conn, $_POST['phone']);
    $skills = mysqli_real_escape_string($conn, $_POST['skills']);
    $experience = mysqli_real_escape_string($conn, $_POST['experience']);
+   $summary = mysqli_real_escape_string($conn, $_POST['summary']);
    $email = mysqli_real_escape_string($conn, $_POST['email']);
    $pass = mysqli_real_escape_string($conn, md5($_POST['password']));
    $cpass = mysqli_real_escape_string($conn, md5($_POST['cpassword']));
@@ -28,7 +29,7 @@ if(isset($_POST['submit'])){
       }elseif($image_size > 2000000){
          $message[] = 'image size is too large!';
       }else{
-         $insert = mysqli_query($conn, "INSERT INTO `jobseeker`(name, age, address, phone, skills, experience, email, password, image) VALUES('$name', '$age', '$address', '$phone', '$skills', '$experience', '$email', '$pass', '$image')") or die('query failed');
+         $insert = mysqli_query($conn, "INSERT INTO `jobseeker`(name, age, address, phone, skills, experience, email, password, image, summary) VALUES('$name', '$age', '$address', '$phone', '$skills', '$experience', '$email', '$pass', '$image', '$summary')") or die('query failed');
 
          if($insert){
             move_uploaded_file($image_tmp_name, $image_folder);
@@ -51,9 +52,40 @@ if(isset($_POST['submit'])){
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/slsu.png">
-    <link rel="stylesheet" href="../css/jobseekerslogin.css">
+    <link rel="stylesheet" href="../css/session.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
     <title>Jobseeker - Sign up</title>
+
+    <style>
+        .flex{
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1px;
+            gap:5px;
+        }
+
+        form .flex .inputBox{
+            width: 100%;
+        }
+
+        form .flex .inputBox span{
+            text-align: left;
+            display: block;
+            margin-top: 1px;
+            font-size: 17px;
+            color: #333;
+        }
+
+        form .flex .inputBox .box{
+            width: 100%;
+            border-radius: 5px;
+            padding:5px 14px;
+            font-size: 17px;
+            margin-top: 2px;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 
 <body>
@@ -65,8 +97,7 @@ if(isset($_POST['submit'])){
                 </div>
                 <div class="col-md-6 right">
                      <div class="input-box">
-                        <h3><b>Job Seeker Registration</b></h3>
-                        <h6>Please fill this form to create an admin account.</h6><br>
+                        <h3><b>Job Seeker Registration</b></h3><br>
                         <form action="" method="post">
                             <?php
                                 if(isset($message)){
@@ -75,56 +106,25 @@ if(isset($_POST['submit'])){
                                     }
                                 }
                             ?>
-                            
-                            <div class="row1">
-                                <div class="col-md-8">
-                                    <label>Fullname</label>
-                                    <input type="text" name="name" placeholder="Fullname" class="form-control" required>
+                            <div class="flex">
+                                <div class="inputBox">
+                                    <input type="text" name="name" placeholder="Fullname" class="box" required>
+                                    <input type="text" name="age" placeholder="Age" class="box" required>
+                                    <input type="text" name="address" placeholder="Address" class="box" required>
+                                    <input type="text" name="phone" placeholder="Phone" class="box" required>
+                                    <input type="text" name="skills" placeholder="Skills" class="box" required>
+                                    <input type="text" name="experience" placeholder="Experience" class="box" required>
+                                    <input type="text" name="summary" placeholder="Summary" class="box" required>
+                                    <input type="email" name="email" placeholder="Email" class="box" required>
+                                    <input type="password" name="password" placeholder="Password" class="box" required>
+                                    <input type="password" name="cpassword" placeholder="Confirm Password" class="box" required>
+                                    <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png" placeholder="Choose File">
                                 </div>
-                                <div class="col-md-4">
-                                    <label>Age</label>
-                                    <input type="text" name="age" placeholder="Age" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="row1">
-                                <div class="col-md-6">
-                                    <label>Address</label>
-                                    <input type="text" name="address" placeholder="Address" class="form-control" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <label>Phone</label>
-                                    <input type="text" name="phone" placeholder="Phone Number" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Skills</label>
-                                <input type="text" name="skills" placeholder="Skills" class="form-control" required>
-                            </div>
-                            <div class="col-md-6">
-                                <label>Experience</label>
-                                <input type="text" name="experience" placeholder="Experience" class="form-control" required>
-                            </div>   
-                            <br>
-                            <div class="form-group">
-                                <label>Email</label>
-                                <input type="email" name="email" placeholder="Email" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Password</label>
-                                <input type="password" name="password" placeholder="Password" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Confirm Password</label>
-                                <input type="password" name="cpassword" style="font-size: 15px;" placeholder="Confirm Password" class="form-control" required>
-                            </div>
-                            <div class="col-md-12">
-                                <label>Profile Picture</label>
-                                <input type="file" name="image" class="box" accept="image/jpg, image/jpeg, image/png" placeholder="Choose File">
                             </div><br>
                             <div class="form-group">
                                 <input type="submit" name="submit" class="btn btn-primary" style="font-size: 15px;" value="Submit">
                                 <input type="reset" class="btn btn-secondary ml-2" style="font-size: 15px;" value="Reset">
-                            </div><br>
+                            </div>
                             <p style="font-size: 17px;margin-left: 0.1rem;">Already have an account? <a href="login.php">Sign In</a>.</p>
                         </form>
                      </div>

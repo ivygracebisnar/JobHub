@@ -71,6 +71,7 @@ if(mysqli_num_rows($select) > 0){
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
+                    <a href="settings.php">
                     <?php
                         if($fetch['image'] == ''){
                             echo '<img src="../images/default-avatar.png">';
@@ -78,6 +79,7 @@ if(mysqli_num_rows($select) > 0){
                             echo '<img src="../uploaded_img/'.$fetch['image'].'">';
                         }
                     ?>
+                    </a>
                 </div>
             </div>
                 <div class="card--container">

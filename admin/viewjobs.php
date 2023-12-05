@@ -22,8 +22,8 @@ $result = mysqli_fetch_array($sql);
 <html lang="en">
     <head>
         <meta charset="UTF-8"/>
-        <title>Job Seekers' Profile</title>
-        <link rel="stylesheet" href="../css/admin.css"/>
+        <title>Job Opportunities</title>
+        <link rel="stylesheet" href="../css/style.css"/>
         <link rel="shortcut icon" href="../img/slsu.png">
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -65,13 +65,15 @@ $result = mysqli_fetch_array($sql);
                             <small class="text-muted">Admin</small>
                         </div>
                     </div>
-                    <?php
-                        if($fetch['image'] == ''){
-                            echo '<img src="../images/default-avatar.png">';
-                        }else{
-                            echo '<img src="../uploaded_img/'.$fetch['image'].'">';
-                        }
-                    ?>
+                        <a href="settings.php">
+                            <?php
+                                if($fetch['image'] == ''){
+                                    echo '<img src="../images/default-avatar.png">';
+                                }else{
+                                    echo '<img src="../uploaded_img/'.$fetch['image'].'">';
+                                }
+                            ?>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -123,6 +125,7 @@ $result = mysqli_fetch_array($sql);
                 </div>
             </div>
         </div>
+        <script src="../js/script.js"></script>
         <?php include("../footer/footer.php") ?>
         <!---END OF MAIN--CONTENT--->
     </body>

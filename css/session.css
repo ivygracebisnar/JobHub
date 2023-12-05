@@ -25,7 +25,7 @@
 }
 .row{
     width: 900px;
-    height: 550px;
+    height: 625px;
     border-radius: 10px;
     background: #fcfce6;
     box-shadow: 5px 5px 10px 1px rgba(0,0,0,0.2);
@@ -121,6 +121,8 @@ span a:hover{
     text-decoration: underline;
     color: #000;
 }
+
+
 
 @media only screen and (max-width: 768px){
     .side-image{
