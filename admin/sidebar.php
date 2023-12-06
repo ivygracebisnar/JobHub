@@ -28,6 +28,18 @@
                         </a>
                     </li>
                     <li>
+                        <a href="activitylog_employer.php">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>Employer Logs</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="activitylog_jobseeker.php">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>Jobseeker Logs</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="logout.php?logout=<?php echo $user_id; ?>">
                             <i class="fas fa-sign-out-alt"></i>
                             <span>Log Out</span>

@@ -169,7 +169,7 @@ if(mysqli_num_rows($select) > 0){
                             <p><?php echo $fetch['skills'];?></p>
                         </div>
                     </div>
-                    <button style="background: rgb(86, 75, 133);color: #fff;padding: 7px 15px;border-radius: 10px;cursor: pointer;margin-left: 750px;"><a href="generate_pdf.php?pdfid=<?php echo htmlentities($fetch['id']);?>">PDF</a></button>
+                    <a href="generate_pdf.php?pdfid=<?php echo htmlentities($fetch['id']);?>"><button style="background: rgb(86, 75, 133);color: #fff;padding: 7px 15px;border-radius: 10px;cursor: pointer;margin-left: 750px;">PDF</button></a>
                 </div>
             </div>
         </div>
