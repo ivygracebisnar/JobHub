@@ -67,7 +67,37 @@ if(mysqli_num_rows($select) > 0){
                     color: #fff;
                     font-weight: bold;
                 }
-
+                .nav {
+                    width: 100%;
+                    background: rgba(113, 99, 186, 255);
+                    overflow: auto;
+                    text-align: center;
+                }
+                .nav ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+                    line-height: 60px;
+                }
+                .nav ul li {
+                    float: left;
+                    margin-right: 50px;
+                }
+                .nav ul li a {
+                    text-decoration: none;
+                    width: 130px;
+                    display: block;
+                    text-align: center;
+                    color: #f2f2f2;
+                    font-size: 18px;
+                    font-family: sans-serif;
+                    letter-spacing: 0.5px;
+                }
+                .nav li a:hover {
+                    color: #fff;
+                    opacity: 0.5;
+                    font-size: 19px;
+                }
             </style>
     </head>
     <body>
@@ -100,16 +130,31 @@ if(mysqli_num_rows($select) > 0){
                             </div>
                         </div>
                     </div>
-                    <a href="profile.php"><?php
+                    <div class="profile">
+                        <div class="info">
+                            <p><b><?php echo $fetch['name']; ?></b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                    </div>
+                    <a href="settings.php">
+                    <?php
                         if($fetch['image'] == ''){
                             echo '<img src="../images/default-avatar.png">';
                         }else{
                             echo '<img src="../uploaded_img/'.$fetch['image'].'">';
                         }
-                    ?></a>
+                    ?>
+                    </a>
                 </div>
             </div>
             <div class="tabular--wrapper">
+                <nav class="nav">
+                    <ul>
+                        <li><a href="activitylog.php">Admin</a></li>
+                        <li><a href="activitylog_employer.php">Employers</a></li>
+                        <li><a href="activitylog_jobseeker.php">Jobseekers</a></li>
+                    </ul>
+                </nav><br>
                 <div class="table-container">
                     <table>
                         <thead>

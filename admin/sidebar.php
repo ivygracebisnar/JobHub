@@ -1,3 +1,4 @@
+
 <div class="sidebar">
             <div class="logo">
                 <ul class="menu">
@@ -23,20 +24,8 @@
                     </li>
                     <li>
                         <a href="activitylog.php">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                            <span>Activity Log</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="activitylog_employer.php">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                            <span>Employer Logs</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="activitylog_jobseeker.php">
-                        <i class="fa-solid fa-clock-rotate-left"></i>
-                            <span>Jobseeker Logs</span>
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span>ActivityLogs</span>
                         </a>
                     </li>
                     <li>
