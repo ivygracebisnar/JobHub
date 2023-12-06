@@ -115,7 +115,7 @@ if(mysqli_num_rows($select) > 0){
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>User ID</th>
+                                <th>User Name</th>
                                 <th>Activity Type</th>
                                 <th>Timestamp</th>
                             </tr>
@@ -142,7 +142,7 @@ if(mysqli_num_rows($select) > 0){
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM jobseeker_activity_log ORDER BY activity_timestamp DESC LIMIT $offset,$total_records_per_page");
+                                $sql = mysqli_query($conn, "SELECT jobseeker_activity_log.*, jobseeker.name AS jobseeker_name FROM jobseeker_activity_log JOIN jobseeker ON jobseeker_activity_log.user_id = jobseeker.id ORDER BY activity_timestamp DESC LIMIT $offset,$total_records_per_page");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
@@ -150,7 +150,7 @@ if(mysqli_num_rows($select) > 0){
                             ?>
                             <tr>
                                 <td><?php echo $count;?></td>
-                                <td><?php echo $row['user_id'];?></td>
+                                <td><?php echo $row['jobseeker_name'];?></td>
                                 <td><?php echo $row['activity_type'];?></td>
                                 <td><?php echo $row['activity_timestamp'];?></td>
                             </tr>

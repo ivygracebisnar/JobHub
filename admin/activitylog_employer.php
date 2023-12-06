@@ -142,7 +142,7 @@ if(mysqli_num_rows($select) > 0){
                                 $total_no_of_pages = ceil($total_records / $total_records_per_page);
                                 $second_last = $total_no_of_pages - 1;
 
-                                $sql = mysqli_query($conn, "SELECT * FROM employers_activity_log ORDER BY activity_timestamp DESC LIMIT $offset,$total_records_per_page");
+                                $sql = mysqli_query($conn, "SELECT *, employers.emp_name AS employer_emp_name FROM employers_activity_log JOIN employers ON employers_activity_log.user_id = employers.id ORDER BY activity_timestamp DESC LIMIT $offset,$total_records_per_page");
                                 $count =1;
                                 $row = mysqli_num_rows($sql);
                                 if($row > 0) {
